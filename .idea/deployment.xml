@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData">
+    <serverData>
+      <paths name="CarPi Remote (308323a0-886c-4a9d-8de3-4e6902225abc)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/tmp.ONZbZUF4G9" local="$PROJECT_DIR$" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-carpi-debug-remote" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-carpi-debug-remote" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
