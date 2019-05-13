@@ -118,7 +118,7 @@ void initialiseRTI() {
     freeRTISettings(settings);
 
     //Open serial uart on Pi-Pin 8
-    if ((serial_descriptor = serialOpen("/dev/ttyAMA0", 2400)) < 0) {
+    if ((serial_descriptor = serialOpen("/dev/ttyS0", 2400)) < 0) { //TODO For PI1 and PI2 use ttyAMA0
         fprintf(stderr, "Unable to open serial device: %s\n", strerror(errno));
         exit(-1);
     }
@@ -138,7 +138,7 @@ void rtiWriteAll() {
     }
 
     if (SEND_BRIGHTNESS) {
-        rtiWrite(0x2F);
+        rtiWrite(0x2F); //TODO SEND right brightness
     }
 
     rtiWrite(RTI_MESSAGE_END);
