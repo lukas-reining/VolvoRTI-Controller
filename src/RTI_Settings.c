@@ -52,6 +52,7 @@ rti_settings *loadSettings(const char *path) {
 
         printf("Loaded settings from disk: DISPLAY_ON: %s\tBRIGHTNESS: %i", settings->turnedOn ? "ON" : "OFF",
                settings->brightness);
+        fflush(stdout);
 
         fclose(fp);
         return settings;
