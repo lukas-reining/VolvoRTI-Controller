@@ -27,8 +27,8 @@ void saveSettings(rti_settings *settings, const char *path) {
         return;
     }
 
-    fprintf(fp,"%s %i\n","DISPLAY_ON:",settings->turnedOn);
-    fprintf(fp,"%s %i\n","BRIGHTNESS:",settings->brightness);
+    fprintf(fp, "%s %i\n", "DISPLAY_ON:", settings->turnedOn);
+    fprintf(fp, "%s %i\n", "BRIGHTNESS:", settings->brightness);
 
     fclose(fp);
 }
@@ -42,13 +42,16 @@ rti_settings *loadSettings(const char *path) {
     int value;
 
     if (fp) {
-        while (fscanf(fp, "%s,%i\n", &identifier, &value)) {
-            if (strcmp(identifier, "DISPLAY_ON:") != 0) {
+        while (fscanf(fp, "%s %i\n", &identifier, &value) != EOF) {
+            if (strcmp(identifier, "DISPLAY STATUS:") == 0) {
                 if (value == 0) settings->turnedOn = false;
-            } else if (strcmp(identifier, "BRIGHTNESS:")) {
+            } else if (strcmp(identifier, "BRIGHTNESS:") == 0) {
                 if (0 <= value && value <= 15) settings->brightness = value;
             }
         }
+
+        printf("Loaded settings from disk: DISPLAY_ON: %s\tBRIGHTNESS: %i", settings->turnedOn ? "ON" : "OFF",
+               settings->brightness);
 
         fclose(fp);
         return settings;
