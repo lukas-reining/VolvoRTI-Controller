@@ -138,7 +138,7 @@ void rtiWriteAll() {
     }
 
     if (SEND_BRIGHTNESS) {
-        rtiWrite(0x2F); //TODO SEND right brightness
+        rtiWrite(brightness_levels[current_brightness_level]); //TODO SEND right brightness
     }
 
     rtiWrite(RTI_MESSAGE_END);
