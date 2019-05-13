@@ -43,14 +43,14 @@ rti_settings *loadSettings(const char *path) {
 
     if (fp) {
         while (fscanf(fp, "%s %i\n", &identifier, &value) != EOF) {
-            if (strcmp(identifier, "DISPLAY STATUS:") == 0) {
+            if (strcmp(identifier, "DISPLAY_ON:") == 0) {
                 if (value == 0) settings->turnedOn = false;
             } else if (strcmp(identifier, "BRIGHTNESS:") == 0) {
                 if (0 <= value && value <= 15) settings->brightness = value;
             }
         }
 
-        printf("Loaded settings from disk: DISPLAY_ON: %s\tBRIGHTNESS: %i\n", settings->turnedOn ? "ON" : "OFF",
+        printf("Loaded settings from disk: DISPLAY STATUS: %s\tBRIGHTNESS: %i\n", settings->turnedOn ? "ON" : "OFF",
                settings->brightness);
         fflush(stdout);
 
