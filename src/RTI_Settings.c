@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 rti_settings *newRTISettings() {
     rti_settings *settings = calloc(1, sizeof(rti_settings));
@@ -26,27 +27,36 @@ void saveSettings(rti_settings *settings, const char *path) {
         return;
     }
 
-    fwrite(settings, sizeof(settings), 1, fp);
+    fprintf(fp,"%s %i\n","DISPLAY_ON:",settings->turnedOn);
+    fprintf(fp,"%s %i\n","BRIGHTNESS:",settings->brightness);
+
+    fclose(fp);
 }
 
 
 rti_settings *loadSettings(const char *path) {
     FILE *fp = fopen(path, "r");
-    rti_settings *settings = NULL;
+    rti_settings *settings = newRTISettings();
 
-    if (fp == NULL) {
-        fprintf(stderr, "\nSettings file could not be loaded or doesn't exist at: %s\n", path);
+    char identifier[255];
+    int value;
 
-        settings = newRTISettings();
-        settings->brightness = 15;
-        settings->turnedOn = true;
+    if (fp) {
+        while (fscanf(fp, "%s,%i\n", &identifier, &value)) {
+            if (strcmp(identifier, "DISPLAY_ON:") != 0) {
+                if (value == 0) settings->turnedOn = false;
+            } else if (strcmp(identifier, "BRIGHTNESS:")) {
+                if (0 <= value && value <= 15) settings->brightness = value;
+            }
+        }
 
-        saveSettings(settings, path);
-        fprintf(stderr, "Created new save file at: %s", path);
-
+        fclose(fp);
         return settings;
     }
 
-    fread(settings, sizeof(rti_settings), 1, fp);
+    fprintf(stderr, "Settings file is invalid or doesn't exist at: %s\n", path);
+    fprintf(stderr, "Created new save file at: %s", path);
+    saveSettings(settings, path);
+
     return settings;
 }
